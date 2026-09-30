@@ -11,7 +11,11 @@ namespace gcodb
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
+                // appsettings.json: modelo versionado no Git, sem senha real.
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                // appsettings.Local.json: sua string de conexão. Está no .gitignore.
+                .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
+                // Variável de ambiente ConnectionStrings__DefaultConnection tem prioridade (CI).
                 .AddEnvironmentVariables();
 
             _configuration = builder.Build();
@@ -23,7 +27,7 @@ namespace gcodb
 
             //Usando a string de conexão via appsettings.json
             optionsBuilder
-                //.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                //.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
 
 

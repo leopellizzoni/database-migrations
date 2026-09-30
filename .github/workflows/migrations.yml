@@ -1,0 +1,45 @@
+# Valida as duas trilhas a cada push e Pull Request.
+# Exercício (aula 10A): fixar as actions por SHA em vez de tag.
+name: migrations
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  flyway:
+    name: Flyway (SQLite)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: migrate + info + validate em banco vazio
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}/flyway:/flyway/project" \
+            -w /flyway/project \
+            redgate/flyway \
+            -configFiles=flyway.toml \
+            -url=jdbc:sqlite:/tmp/ci.db \
+            migrate info validate
+
+  efcore:
+    name: EF Core
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: efcore/gcodb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - run: dotnet tool restore
+      - run: dotnet build
+      - name: Modelo e migrations consistentes
+        run: dotnet ef migrations has-pending-model-changes
+      - name: Script SQL revisável
+        run: dotnet ef migrations script --idempotent -o ../../artifacts/migrate.sql
+      - uses: actions/upload-artifact@v4
+        with:
+          name: efcore-migrate-sql
+          path: artifacts/migrate.sql

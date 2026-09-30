@@ -1,0 +1,13 @@
+# Configuração do Flyway para esta pasta.
+# Uso: flyway -configFiles=flyway.toml <comando>
+# Banco padrão: arquivo SQLite local (gcodb.db), criado no primeiro migrate.
+# Para outro banco, sobrescreva na linha de comando: -url=... -user=... -password=...
+
+[flyway]
+locations = ["filesystem:sql"]
+# Padrões mantidos de propósito (valores default do Flyway, explícitos para estudo):
+validateOnMigrate = true   # recusa migrar se um arquivo já aplicado foi alterado
+outOfOrder = false         # recusa versão menor que a última aplicada
+
+[environments.default]
+url = "jdbc:sqlite:gcodb.db"
