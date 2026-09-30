@@ -336,3 +336,13 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+# --- database-migrations (ENS4000) ---
+# String de conexão local da trilha EF Core (copie de appsettings.Local.exemplo.json)
+appsettings.Local.json
+# Bancos SQLite locais da trilha Flyway
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+# Scripts gerados pelo CI/localmente
+artifacts/
