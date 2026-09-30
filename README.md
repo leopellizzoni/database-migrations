@@ -1,6 +1,5 @@
 # database-migrations
 
-Repositório de apoio da disciplina **ENS4000 – Gerência de Configuração (UCS)**, aula 10B: *o banco de dados como dependência*.
 
 O mesmo banco (tabela `TABELATESTE` com três registros) é mantido por **duas ferramentas de migration**, em duas trilhas independentes:
 
