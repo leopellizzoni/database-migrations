@@ -62,7 +62,7 @@ Como a ferramenta consulta essa tabela antes de executar, **os scripts não prec
    git clone https://github.com/<seu-usuario>/database-migrations.git
    cd database-migrations
    ```
-3. Crie as branches de integração usadas nas práticas (o repositório original só tem `master`):
+3. Crie as branches de integração usadas nas práticas (o repositório original só tem `main`):
    ```bash
    git switch -c develop && git push -u origin develop
    git switch -c release && git push -u origin release
@@ -75,4 +75,3 @@ Como a ferramenta consulta essa tabela antes de executar, **os scripts não prec
 - Flyway: https://documentation.red-gate.com/fd
 - EF Core Migrations: https://learn.microsoft.com/ef/core/managing-schemas/migrations/
 - SADALAGE, P.; FOWLER, M. *Evolutionary Database Design*. https://martinfowler.com/articles/evodb.html
-- SATO, D. *ParallelChange* (expand/contract). https://martinfowler.com/bliki/ParallelChange.html
